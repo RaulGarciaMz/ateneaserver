@@ -1,0 +1,11 @@
+{
+    "server": {
+      "port": ":8085"
+    },
+    "database": {
+      "host": "localhost",
+      "username": "admin",
+      "password": "admin",
+      "dbname": "atenea"
+    }
+  }

@@ -1,0 +1,1054 @@
+basePath: /atenea
+definitions:
+  models.EquipoParam:
+    properties:
+      descripcion:
+        type: string
+      id:
+        type: integer
+      ip:
+        type: string
+      nombre:
+        type: string
+    type: object
+  models.GrupoEquipoParam:
+    properties:
+      id_equipo:
+        type: integer
+      id_grupo:
+        type: integer
+    type: object
+  models.GrupoParam:
+    properties:
+      id:
+        type: integer
+      nombre:
+        type: string
+    type: object
+  models.ListaAlarma:
+    properties:
+      equipo:
+        type: string
+      id_equipo:
+        type: integer
+      msg_card_id:
+        type: integer
+      msg_id:
+        type: integer
+      msg_instance:
+        type: integer
+      msg_port:
+        type: integer
+      msg_set_time:
+        type: string
+      msg_severity:
+        type: string
+      msg_slot:
+        type: integer
+      msg_source_name:
+        type: string
+      msg_text:
+        type: string
+    type: object
+  models.MonitoreoEquipo:
+    properties:
+      critical:
+        type: integer
+      equipo:
+        type: string
+      id_equipo:
+        type: integer
+      ip:
+        type: string
+      major:
+        type: integer
+      not_reachable:
+        type: integer
+      notify:
+        type: integer
+      warning:
+        type: integer
+    type: object
+  models.MonitoreoGrupo:
+    properties:
+      critical:
+        type: integer
+      grupo:
+        type: string
+      id_grupo:
+        type: integer
+      major:
+        type: integer
+      not_reachable:
+        type: integer
+      notify:
+        type: integer
+      tot_equipos:
+        type: integer
+      warning:
+        type: integer
+    type: object
+  models.RolParam:
+    properties:
+      id:
+        type: integer
+      nombre:
+        type: string
+    type: object
+  models.Usuario:
+    properties:
+      cel:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      id_rol:
+        type: integer
+      nombre:
+        type: string
+      pass:
+        type: string
+      usuario:
+        type: string
+    type: object
+  models.UsuarioAuthParam:
+    properties:
+      password:
+        type: string
+      usuario:
+        type: string
+    type: object
+  models.UsuarioParam:
+    properties:
+      cel:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      id_rol:
+        type: integer
+      nombre:
+        type: string
+      password:
+        type: string
+      usuario:
+        type: string
+    type: object
+host: IPServer:3021
+info:
+  contact:
+    email: rgarciaxxx@yahoo.com.mx
+    name: 'Soporte para las APIS: Raúl García'
+    url: http://www.ineel.mx
+  description: Contiene las APIs para atender las peticiones de la IHM hacia la base
+    de datos ATENEA
+  license:
+    name: Atenea Inc.
+    url: http://www.atenea.mx/LICENSE-2.0.html
+  title: Servidor de APIs para ATENEA
+  version: "1.0"
+paths:
+  /alarma/critica/equipo/{id}:
+    get:
+      description: Obtiene la lista de alarmas criticas correspondiente al identificador
+        del equipo indicado
+      parameters:
+      - description: Identificador (id) del equipo
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.ListaAlarma'
+            type: array
+        "400":
+          description: ""
+        "404":
+          description: ""
+        "500":
+          description: ""
+      summary: Obtiene la lista de alarmas criticas de equipos
+      tags:
+      - alarma
+  /alarma/critica/grupo/{id}:
+    get:
+      description: Obtiene la lista de alarmas criticas correspondiente al identificador
+        del grupo indicado
+      parameters:
+      - description: Identificador (id) del grupo
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.ListaAlarma'
+            type: array
+        "400":
+          description: ""
+        "404":
+          description: ""
+        "500":
+          description: ""
+      summary: Obtiene la lista de alarmas criticas por grupos
+      tags:
+      - alarma
+  /alarma/grupo/{id}:
+    get:
+      description: Obtiene la lista de alarmas correspondiente al identificador del
+        grupo indicado
+      parameters:
+      - description: Identificador (id) del grupo
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.ListaAlarma'
+            type: array
+        "400":
+          description: ""
+        "404":
+          description: ""
+        "500":
+          description: ""
+      summary: Obtiene la lista de alarmas por grupos
+      tags:
+      - alarma
+  /alarma/major/equipo/{id}:
+    get:
+      description: Obtiene la lista de alarmas major correspondiente al identificador
+        del equipo indicado
+      parameters:
+      - description: Identificador (id) del equipo
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.ListaAlarma'
+            type: array
+        "400":
+          description: ""
+        "404":
+          description: ""
+        "500":
+          description: ""
+      summary: Obtiene la lista de alarmas major por equipos
+      tags:
+      - alarma
+  /alarma/major/grupo/{id}:
+    get:
+      description: Obtiene la lista de alarmas major correspondiente al identificador
+        del grupo indicado
+      parameters:
+      - description: Identificador (id) del grupo
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.ListaAlarma'
+            type: array
+        "400":
+          description: ""
+        "404":
+          description: ""
+        "500":
+          description: ""
+      summary: Obtiene la lista de alarmas major por grupos
+      tags:
+      - alarma
+  /alarma/not-reachable/equipo/{id}:
+    get:
+      description: Obtiene la lista de alarmas not-reachable correspondiente al identificador
+        del equipo indicado
+      parameters:
+      - description: Identificador (id) del equipo
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.ListaAlarma'
+            type: array
+        "400":
+          description: ""
+        "404":
+          description: ""
+        "500":
+          description: ""
+      summary: Obtiene la lista de alarmas not-reachable por equipos
+      tags:
+      - alarma
+  /alarma/not-reachable/grupo/{id}:
+    get:
+      description: Obtiene la lista de alarmas not-reachable correspondiente al identificador
+        del grupo indicado
+      parameters:
+      - description: Identificador (id) del grupo
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.ListaAlarma'
+            type: array
+        "400":
+          description: ""
+        "404":
+          description: ""
+        "500":
+          description: ""
+      summary: Obtiene la lista de alarmas not-reachable por grupos
+      tags:
+      - alarma
+  /alarma/notify/equipo/{id}:
+    get:
+      description: Obtiene la lista de alarmas notify correspondiente al identificador
+        del equipo indicado
+      parameters:
+      - description: Identificador (id) del equipo
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.ListaAlarma'
+            type: array
+        "400":
+          description: ""
+        "404":
+          description: ""
+        "500":
+          description: ""
+      summary: Obtiene la lista de alarmas notify por equipos
+      tags:
+      - alarma
+  /alarma/notify/grupo/{id}:
+    get:
+      description: Obtiene la lista de alarmas notify correspondiente al identificador
+        del grupo indicado
+      parameters:
+      - description: Identificador (id) del grupo
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.ListaAlarma'
+            type: array
+        "400":
+          description: ""
+        "404":
+          description: ""
+        "500":
+          description: ""
+      summary: Obtiene la lista de alarmas notify por grupos
+      tags:
+      - alarma
+  /alarma/warning/equipo/{id}:
+    get:
+      description: Obtiene la lista de alarmas warning correspondiente al identificador
+        del equipo indicado
+      parameters:
+      - description: Identificador (id) del equipo
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.ListaAlarma'
+            type: array
+        "400":
+          description: ""
+        "404":
+          description: ""
+        "500":
+          description: ""
+      summary: Obtiene la lista de alarmas warning por equipos
+      tags:
+      - alarma
+  /alarma/warning/grupo/{id}:
+    get:
+      description: Obtiene la lista de alarmas warning correspondiente al identificador
+        del grupo indicado
+      parameters:
+      - description: Identificador (id) del grupo
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.ListaAlarma'
+            type: array
+        "400":
+          description: ""
+        "404":
+          description: ""
+        "500":
+          description: ""
+      summary: Obtiene la lista de alarmas warning por grupos
+      tags:
+      - alarma
+  /equipo:
+    post:
+      consumes:
+      - application/json
+      description: Agrega un nueva equipo
+      parameters:
+      - description: Estructura del equipo a agregar
+        in: body
+        name: equipo
+        required: true
+        schema:
+          $ref: '#/definitions/models.EquipoParam'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            type: string
+        "400":
+          description: ""
+        "409":
+          description: Conflict
+          schema:
+            type: string
+        "417":
+          description: Expectation Failed
+          schema:
+            type: string
+        "500":
+          description: ""
+      summary: Crea un nuevo registro de equipo
+      tags:
+      - equipo
+    put:
+      consumes:
+      - application/json
+      description: Actualiza el registro del equipo indicado en el body de la petición
+      parameters:
+      - description: Estructura del equipo a actualizar
+        in: body
+        name: equipo
+        required: true
+        schema:
+          $ref: '#/definitions/models.EquipoParam'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: ""
+        "409":
+          description: Conflict
+          schema:
+            type: string
+        "417":
+          description: Expectation Failed
+          schema:
+            type: string
+        "500":
+          description: ""
+      summary: Actualiza datos de un equipo
+      tags:
+      - equipo
+  /equipo/id/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Borra el equipo correspondiente al valor del identificador (id)
+        indicado.
+      parameters:
+      - description: Identificador (id) del equipo a eliminar
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: ""
+        "409":
+          description: Conflict
+          schema:
+            type: string
+        "417":
+          description: Expectation Failed
+          schema:
+            type: string
+        "500":
+          description: ""
+      summary: Elimina equipos
+      tags:
+      - equipo
+  /grupo:
+    post:
+      consumes:
+      - application/json
+      description: Agrega un nuevo grupo
+      parameters:
+      - description: Estructura del grupo a agregar
+        in: body
+        name: equipo
+        required: true
+        schema:
+          $ref: '#/definitions/models.GrupoParam'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            type: string
+        "400":
+          description: ""
+        "409":
+          description: Conflict
+          schema:
+            type: string
+        "417":
+          description: Expectation Failed
+          schema:
+            type: string
+        "500":
+          description: ""
+      summary: Crea un nuevo registro de grupo
+      tags:
+      - grupo
+    put:
+      consumes:
+      - application/json
+      description: Actualiza el registro del grupo indicado en el body de la petición
+      parameters:
+      - description: Estructura del grupo a actualizar
+        in: body
+        name: equipo
+        required: true
+        schema:
+          $ref: '#/definitions/models.GrupoParam'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: ""
+        "409":
+          description: Conflict
+          schema:
+            type: string
+        "417":
+          description: Expectation Failed
+          schema:
+            type: string
+        "500":
+          description: ""
+      summary: Actualiza datos de un grupo
+      tags:
+      - grupo
+  /grupo-equipo:
+    post:
+      consumes:
+      - application/json
+      description: Agrega un nuevo grupo-equipo
+      parameters:
+      - description: Estructura del grupo-equipo a agregar
+        in: body
+        name: equipo
+        required: true
+        schema:
+          $ref: '#/definitions/models.GrupoEquipoParam'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            type: string
+        "400":
+          description: ""
+        "409":
+          description: Conflict
+          schema:
+            type: string
+        "417":
+          description: Expectation Failed
+          schema:
+            type: string
+        "500":
+          description: ""
+      summary: Crea un nuevo registro de grupo-equipo
+      tags:
+      - grupo-equipo
+  /grupo-equipo/{id_grupo}/{id_equipo}:
+    delete:
+      consumes:
+      - application/json
+      description: Borra la combinación grupo - equipo correspondiente a los valores
+        de los identificadores (id-equipo, id_grupo) indicado.
+      parameters:
+      - description: Identificador del grupo
+        in: path
+        name: id_grupo
+        required: true
+        type: string
+      - description: Identificador del equipo
+        in: path
+        name: id_equipo
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: ""
+        "409":
+          description: Conflict
+          schema:
+            type: string
+        "417":
+          description: Expectation Failed
+          schema:
+            type: string
+        "500":
+          description: ""
+      summary: Elimina combinaciones de grupos - equipos
+      tags:
+      - grupo-equipo
+  /grupo/id/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Borra el grupo correspondiente al valor del identificador (id)
+        indicado.
+      parameters:
+      - description: Identificador (id) del grupo a eliminar
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: ""
+        "409":
+          description: Conflict
+          schema:
+            type: string
+        "417":
+          description: Expectation Failed
+          schema:
+            type: string
+        "500":
+          description: ""
+      summary: Elimina grupos
+      tags:
+      - grupo
+  /monitoreo/equipo:
+    get:
+      description: Obtiene el monitoreo de todos los equipos
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.MonitoreoEquipo'
+            type: array
+        "404":
+          description: ""
+        "500":
+          description: ""
+      summary: Obtiene el monitoreo por equipos
+      tags:
+      - monitoreo
+  /monitoreo/equipo/{id}:
+    get:
+      description: Obtiene el monitoreo del equipo correspondiente al identificador
+        del equipo indicado
+      parameters:
+      - description: Identificador (id) del equipo
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.MonitoreoEquipo'
+            type: array
+        "400":
+          description: ""
+        "404":
+          description: ""
+        "500":
+          description: ""
+      summary: Obtiene el monitoreo por equipos
+      tags:
+      - monitoreo
+  /monitoreo/grupo/{id}:
+    get:
+      description: Obtiene el monitoreo del equipo correspondiente al identificador
+        del grupo indicado
+      parameters:
+      - description: Identificador (id) del grupo
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.MonitoreoEquipo'
+            type: array
+        "400":
+          description: ""
+        "404":
+          description: ""
+        "500":
+          description: ""
+      summary: Obtiene el monitoreo por grupos
+      tags:
+      - monitoreo
+  /monitoreo/grupos:
+    get:
+      description: Obtiene los datos de monitoreo de los grupos
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.MonitoreoGrupo'
+            type: array
+        "404":
+          description: ""
+        "500":
+          description: ""
+      summary: Obtiene los datos de monitoreo de los grupos
+      tags:
+      - monitoreo
+  /rol:
+    post:
+      consumes:
+      - application/json
+      description: Agrega un nuevo rol
+      parameters:
+      - description: Estructura del rol a agregar
+        in: body
+        name: equipo
+        required: true
+        schema:
+          $ref: '#/definitions/models.RolParam'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            type: string
+        "400":
+          description: ""
+        "409":
+          description: Conflict
+          schema:
+            type: string
+        "417":
+          description: Expectation Failed
+          schema:
+            type: string
+        "500":
+          description: ""
+      summary: Crea un nuevo registro de rol
+      tags:
+      - rol
+  /rol/id/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Borra el rol correspondiente al valor del identificador (id) indicado.
+      parameters:
+      - description: Identificador (id) del rol a eliminar
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: ""
+        "409":
+          description: Conflict
+          schema:
+            type: string
+        "417":
+          description: Expectation Failed
+          schema:
+            type: string
+        "500":
+          description: ""
+      summary: Elimina roles
+      tags:
+      - rol
+  /usuario:
+    post:
+      consumes:
+      - application/json
+      description: Agrega un nuevo usuario
+      parameters:
+      - description: Estructura del usuario a agregar
+        in: body
+        name: equipo
+        required: true
+        schema:
+          $ref: '#/definitions/models.UsuarioParam'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            type: string
+        "400":
+          description: ""
+        "409":
+          description: Conflict
+          schema:
+            type: string
+        "417":
+          description: Expectation Failed
+          schema:
+            type: string
+        "500":
+          description: ""
+      summary: Crea un nuevo registro de usuario
+      tags:
+      - usuario
+    put:
+      consumes:
+      - application/json
+      description: Actualiza el registro del usuario indicado en el body de la petición
+      parameters:
+      - description: Estructura del usuario a actualizar
+        in: body
+        name: equipo
+        required: true
+        schema:
+          $ref: '#/definitions/models.UsuarioParam'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: ""
+        "417":
+          description: Expectation Failed
+          schema:
+            type: string
+        "500":
+          description: ""
+      summary: Actualiza datos de usuarios
+      tags:
+      - usuario
+  /usuario/actpass:
+    put:
+      consumes:
+      - application/json
+      description: Actualiza el password del usuario indicado en el body de la petición
+      parameters:
+      - description: Estructura del usuario y pwd a actualizar
+        in: body
+        name: equipo
+        required: true
+        schema:
+          $ref: '#/definitions/models.UsuarioAuthParam'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: ""
+        "417":
+          description: Expectation Failed
+          schema:
+            type: string
+        "500":
+          description: ""
+      summary: Actualiza el password de usuarios
+      tags:
+      - usuario
+  /usuario/id/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Borra el usuario correspondiente al valor del identificador (id)
+        indicado.
+      parameters:
+      - description: Identificador (id) del usuario a eliminar
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: ""
+        "409":
+          description: Conflict
+          schema:
+            type: string
+        "417":
+          description: Expectation Failed
+          schema:
+            type: string
+        "500":
+          description: ""
+      summary: Elimina usuarios
+      tags:
+      - usuario
+  /usuario/valida:
+    post:
+      consumes:
+      - application/json
+      description: Valida credenciales del usuario indicado en el body de la petición
+      parameters:
+      - description: Estructura del usuario a agregar
+        in: body
+        name: equipo
+        required: true
+        schema:
+          $ref: '#/definitions/models.UsuarioAuthParam'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Usuario'
+        "400":
+          description: ""
+        "401":
+          description: Unauthorized
+          schema:
+            type: string
+        "500":
+          description: ""
+      summary: Valida credenciales de usuarios
+      tags:
+      - usuario
+swagger: "2.0"
