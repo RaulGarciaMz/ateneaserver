@@ -426,3 +426,199 @@ func (e *Atenea) ListaAlarmaWarningGrupo() gin.HandlerFunc {
 		c.JSON(http.StatusOK, single)
 	}
 }
+
+// TotalAlarmas godoc
+// @Summary Obtiene el total de alarmas critical, major y warning del sistema
+// @Description Obtiene el total de alarmas alarmas critical, major y warning del sistema
+// @Tags alarma
+// @Produce  json
+// @Success 200 {object} models.TotalAlarma
+// @Failure 404
+// @Failure 500
+// @Router /alarma/total [get]
+func (e *Atenea) TotalAlarmas() gin.HandlerFunc {
+	return func(c *gin.Context) {
+
+		single, err := e.db.TotalAlarmas()
+		if err != nil {
+
+			if errors.Is(err, gorm.ErrRecordNotFound) {
+				c.JSON(http.StatusNotFound, err)
+				return
+			}
+
+			c.JSON(http.StatusInternalServerError, err)
+			return
+		}
+
+		c.JSON(http.StatusOK, single)
+	}
+}
+
+// TotalEquiposAlarmas godoc
+// @Summary Obtiene el total de alarmas critical, major y warning del equipo
+// @Description Obtiene el total de alarmas alarmas critical, major y warning del equipo
+// @Tags alarma
+// @Produce  json
+// @Success 200 {object} models.TotalAlarma
+// @Failure 404
+// @Failure 500
+// @Router /alarma/equipo/total [get]
+func (e *Atenea) TotalEquiposAlarmas() gin.HandlerFunc {
+	return func(c *gin.Context) {
+
+		single, err := e.db.TotalEquiposAlarmas()
+		if err != nil {
+
+			if errors.Is(err, gorm.ErrRecordNotFound) {
+				c.JSON(http.StatusNotFound, err)
+				return
+			}
+
+			c.JSON(http.StatusInternalServerError, err)
+			return
+		}
+
+		c.JSON(http.StatusOK, single)
+	}
+}
+
+// GraficoPrincipal godoc
+// @Summary Obtiene un resumen de alarmas por hora
+// @Description Obtiene un resumen de alarmas por hora
+// @Tags alarma
+// @Produce  json
+// @Success 200 {array} models.GraficoPrincipal
+// @Failure 404
+// @Failure 500
+// @Router /alarma/resumen [get]
+func (e *Atenea) GraficoPrincipal() gin.HandlerFunc {
+	return func(c *gin.Context) {
+
+		single, err := e.db.GraficoPrincipal()
+		if err != nil {
+
+			if errors.Is(err, gorm.ErrRecordNotFound) {
+				c.JSON(http.StatusNotFound, err)
+				return
+			}
+
+			c.JSON(http.StatusInternalServerError, err)
+			return
+		}
+
+		c.JSON(http.StatusOK, single)
+	}
+}
+
+// TotalNoAlcanzable godoc
+// @Summary Obtiene un resumen de alarmas no alcanzables
+// @Description Obtiene un resumen de alarmas no alcanzables
+// @Tags alarma
+// @Produce  json
+// @Success 200 {integer} integer
+// @Failure 404
+// @Failure 500
+// @Router /alarma/not-reachable [get]
+func (e *Atenea) TotalNoAlcanzable() gin.HandlerFunc {
+	return func(c *gin.Context) {
+
+		single, err := e.db.TotalNoAlcanzable()
+		if err != nil {
+
+			if errors.Is(err, gorm.ErrRecordNotFound) {
+				c.JSON(http.StatusNotFound, err)
+				return
+			}
+
+			c.JSON(http.StatusInternalServerError, err)
+			return
+		}
+
+		c.JSON(http.StatusOK, single)
+	}
+}
+
+// TopEquiposAlarmados godoc
+// @Summary Obtiene los equipos con mayor número de alarmas
+// @Description Obtiene los equipos con mayor número de alarmas
+// @Tags alarma
+// @Produce  json
+// @Success 200 {array} models.TopEquipoAlarmado
+// @Failure 404
+// @Failure 500
+// @Router /alarma/top/equipo [get]
+func (e *Atenea) TopEquiposAlarmados() gin.HandlerFunc {
+	return func(c *gin.Context) {
+
+		single, err := e.db.TopEquiposAlarmados()
+		if err != nil {
+
+			if errors.Is(err, gorm.ErrRecordNotFound) {
+				c.JSON(http.StatusNotFound, err)
+				return
+			}
+
+			c.JSON(http.StatusInternalServerError, err)
+			return
+		}
+
+		c.JSON(http.StatusOK, single)
+	}
+}
+
+// TopOcurrenciaTipoAlarmas godoc
+// @Summary Obtiene las alarmas con mayor ocurrencia
+// @Description Obtiene las alarmas con mayor ocurrencia
+// @Tags alarma
+// @Produce  json
+// @Success 200 {array} models.TopEquipoAlarmado
+// @Failure 404
+// @Failure 500
+// @Router /alarma/top/ocurrencia [get]
+func (e *Atenea) TopOcurrenciaTipoAlarmas() gin.HandlerFunc {
+	return func(c *gin.Context) {
+
+		single, err := e.db.TopOcurrenciaTipoAlarmas()
+		if err != nil {
+
+			if errors.Is(err, gorm.ErrRecordNotFound) {
+				c.JSON(http.StatusNotFound, err)
+				return
+			}
+
+			c.JSON(http.StatusInternalServerError, err)
+			return
+		}
+
+		c.JSON(http.StatusOK, single)
+	}
+}
+
+// TopNoAlcanzable godoc
+// @Summary Obtiene los equipos con mayor ocurrencia de alarmas no alcanzables
+// @Description Obtiene los equipos con mayor ocurrencia de alarmas no alcanzables
+// @Tags alarma
+// @Produce  json
+// @Success 200 {array} models.TopEquipoAlarmado
+// @Failure 404
+// @Failure 500
+// @Router /alarma/top/no-alcanzable [get]
+func (e *Atenea) TopNoAlcanzable() gin.HandlerFunc {
+	return func(c *gin.Context) {
+
+		single, err := e.db.TopNoAlcanzable()
+		if err != nil {
+
+			if errors.Is(err, gorm.ErrRecordNotFound) {
+				c.JSON(http.StatusNotFound, err)
+				return
+			}
+
+			c.JSON(http.StatusInternalServerError, err)
+			return
+		}
+
+		c.JSON(http.StatusOK, single)
+	}
+}

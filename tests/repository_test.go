@@ -564,6 +564,25 @@ func TestRepo_ProcesaAlarmasLista(t *testing.T) {
 
 }
 
+func TestRepo_TotalAlarmas(t *testing.T) {
+
+	var err error
+
+	cn, err := createConnection()
+	if err != nil {
+		t.Fatal("No se conectó")
+	}
+
+	repo := database.NewAteneaRepo(cn)
+
+	b, err := repo.TotalAlarmas()
+	_ = b
+	if err != nil {
+		t.Error("No obtuvo datos por error")
+	}
+
+}
+
 // utilerías para testing
 func createConnection() (*gorm.DB, error) {
 	uri := fmt.Sprintf("host=%s user=%s dbname=%s sslmode=disable password=%s", "184.72.110.87", "admin", "atenea", "admin")

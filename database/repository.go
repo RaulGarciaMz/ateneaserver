@@ -419,7 +419,7 @@ func (e *AteneaRepo) ProcesaAlarmasLista(als *models.ListaAlarmasParam) (string,
 	/* 	tt := pq.Array(als.TimestampInicios)
 	   	td:= pq.Array(als.DateServer) */
 
-	err := e.db.Debug().Raw("SELECT * FROM admin.procesa_alarmas_lista(?, ?,?,?,?,?,?,?,?,?,?,?,?) as resultado",
+	err := e.db.Raw("SELECT * FROM admin.procesa_alarmas_lista(?, ?,?,?,?,?,?,?,?,?,?,?,?) as resultado",
 		als.Id, pq.Array(als.MsgIds), pq.Array(als.MsgSlots), pq.Array(als.MsgPorts),
 		pq.Array(als.MsgTexts), pq.Array(als.MsgSourcesNames), pq.Array(als.MsgSeveryties), pq.Array(als.MsgInstances),
 		pq.Array(als.MsgSetTimes), pq.Array(als.MsgCardIds), pq.Array(als.TimestampInicios), als.DateServer,
@@ -429,4 +429,81 @@ func (e *AteneaRepo) ProcesaAlarmasLista(als *models.ListaAlarmasParam) (string,
 	}
 
 	return *single.Resultado, err
+}
+
+func (e *AteneaRepo) TotalAlarmas() (*models.TotalAlarma, error) {
+	single := models.TotalAlarma{}
+
+	err := e.db.Raw("SELECT * FROM admin.total_alarmas()").Scan(&single).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return &single, err
+}
+
+func (e *AteneaRepo) TotalEquiposAlarmas() (*models.TotalAlarma, error) {
+	single := models.TotalAlarma{}
+
+	err := e.db.Raw("SELECT * FROM admin.total_equipos_alarmas()").Scan(&single).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return &single, err
+}
+
+func (e *AteneaRepo) GraficoPrincipal() ([]models.GraficoPrincipal, error) {
+	single := []models.GraficoPrincipal{}
+
+	err := e.db.Raw("SELECT * FROM admin.grafico_principal()").Scan(&single).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return single, err
+}
+
+func (e *AteneaRepo) TotalNoAlcanzable() (*int32, error) {
+	single := models.FunctionRespInteger{}
+
+	err := e.db.Raw("SELECT * FROM admin.total_no_alcanzable() as resultado").Scan(&single).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return single.Resultado, err
+}
+
+func (e *AteneaRepo) TopEquiposAlarmados() ([]models.TopEquipoAlarmado, error) {
+	single := []models.TopEquipoAlarmado{}
+
+	err := e.db.Raw("SELECT * FROM admin.top_equipos_alarmados()").Scan(&single).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return single, err
+}
+
+func (e *AteneaRepo) TopOcurrenciaTipoAlarmas() ([]models.TopEquipoAlarmado, error) {
+	single := []models.TopEquipoAlarmado{}
+
+	err := e.db.Raw("SELECT * FROM admin.top_ocurrencia_tipo_alarmas()").Scan(&single).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return single, err
+}
+
+func (e *AteneaRepo) TopNoAlcanzable() ([]models.TopEquipoAlarmado, error) {
+	single := []models.TopEquipoAlarmado{}
+
+	err := e.db.Raw("SELECT * FROM admin.top_no_alcanzable()").Scan(&single).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return single, err
 }

@@ -130,7 +130,7 @@ func (e *Atenea) IntegraGrupoEquipo() gin.HandlerFunc {
 // @Failure 409 {string} string
 // @Failure 417 {string} string
 // @Failure 500
-// @Router /grupo-equipo [post]
+// @Router /grupo-equipo/lista [post]
 func (e *Atenea) IntegraGrupoEquipoLista() gin.HandlerFunc {
 	return func(c *gin.Context) {
 

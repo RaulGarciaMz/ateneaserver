@@ -6,6 +6,10 @@ type FunctionResp struct {
 	Resultado *string `gorm:"column:resultado" json:"resultado"`
 }
 
+type FunctionRespInteger struct {
+	Resultado *int32 `gorm:"column:resultado" json:"resultado"`
+}
+
 type MonitoreoGrupo struct {
 	Grupo        *string `gorm:"column:grupo" json:"grupo"`
 	IdGrupo      *int32  `gorm:"column:id_grupo" json:"id_grupo"`
@@ -72,6 +76,23 @@ type Equipo struct {
 type GrupoEquipo struct {
 	IdGrupo  *int32 `gorm:"column:id_grupo" json:"id_grupo"`
 	IdEquipo *int32 `gorm:"column:id_equipo" json:"id_equipo"`
+}
+
+type TotalAlarma struct {
+	Critical *int32 `gorm:"column:critical" json:"critical"`
+	Major    *int32 `gorm:"column:major" json:"major"`
+	Warning  *int32 `gorm:"column:warning" json:"warning"`
+}
+
+type GraficoPrincipal struct {
+	Concepto *string    `gorm:"column:concepto" json:"concepto"`
+	Fecha    *time.Time `gorm:"column:fecha" json:"fecha"`
+	Valor    *int32     `gorm:"column:valor" json:"valor"`
+}
+
+type TopEquipoAlarmado struct {
+	Nombre *string `gorm:"column:nombre" json:"nombre"`
+	Total  *int32  `gorm:"column:total" json:"total"`
 }
 
 type ListaAlarmasParam struct {

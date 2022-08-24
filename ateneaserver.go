@@ -16,7 +16,10 @@ import (
 	"github.com/RaulGarciaMz/ateneaserver/routes"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
-)
+	/*
+		 	_ "github.com/swaggo/files"
+			_ "github.com/swaggo/gin-swagger"
+	*/)
 
 const executableID = "ATENEA"
 

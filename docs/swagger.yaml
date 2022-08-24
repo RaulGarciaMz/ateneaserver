@@ -1,5 +1,16 @@
-basePath: /atenea
+basePath: /atenea/admin
 definitions:
+  models.Equipo:
+    properties:
+      descripcion:
+        type: string
+      id:
+        type: integer
+      ip:
+        type: string
+      nombre:
+        type: string
+    type: object
   models.EquipoParam:
     properties:
       descripcion:
@@ -10,6 +21,38 @@ definitions:
         type: string
       nombre:
         type: string
+    type: object
+  models.GraficoPrincipal:
+    properties:
+      concepto:
+        type: string
+      fecha:
+        type: string
+      valor:
+        type: integer
+    type: object
+  models.Grupo:
+    properties:
+      id:
+        type: integer
+      nombre:
+        type: string
+    type: object
+  models.GrupoEquipo:
+    properties:
+      id_equipo:
+        type: integer
+      id_grupo:
+        type: integer
+    type: object
+  models.GrupoEquipoIntegraParam:
+    properties:
+      equipos:
+        items:
+          type: integer
+        type: array
+      id_grupo:
+        type: integer
     type: object
   models.GrupoEquipoParam:
     properties:
@@ -88,12 +131,35 @@ definitions:
       warning:
         type: integer
     type: object
+  models.Rol:
+    properties:
+      id:
+        type: integer
+      nombre:
+        type: string
+    type: object
   models.RolParam:
     properties:
       id:
         type: integer
       nombre:
         type: string
+    type: object
+  models.TopEquipoAlarmado:
+    properties:
+      nombre:
+        type: string
+      total:
+        type: integer
+    type: object
+  models.TotalAlarma:
+    properties:
+      critical:
+        type: integer
+      major:
+        type: integer
+      warning:
+        type: integer
     type: object
   models.Usuario:
     properties:
@@ -136,7 +202,7 @@ definitions:
       usuario:
         type: string
     type: object
-host: IPServer:3021
+host: IPServer:8085
 info:
   contact:
     email: rgarciaxxx@yahoo.com.mx
@@ -170,11 +236,11 @@ paths:
               $ref: '#/definitions/models.ListaAlarma'
             type: array
         "400":
-          description: ""
+          description: Bad Request
         "404":
-          description: ""
+          description: Not Found
         "500":
-          description: ""
+          description: Internal Server Error
       summary: Obtiene la lista de alarmas criticas de equipos
       tags:
       - alarma
@@ -198,12 +264,30 @@ paths:
               $ref: '#/definitions/models.ListaAlarma'
             type: array
         "400":
-          description: ""
+          description: Bad Request
         "404":
-          description: ""
+          description: Not Found
         "500":
-          description: ""
+          description: Internal Server Error
       summary: Obtiene la lista de alarmas criticas por grupos
+      tags:
+      - alarma
+  /alarma/equipo/total:
+    get:
+      description: Obtiene el total de alarmas alarmas critical, major y warning del
+        equipo
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.TotalAlarma'
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Obtiene el total de alarmas critical, major y warning del equipo
       tags:
       - alarma
   /alarma/grupo/{id}:
@@ -226,11 +310,11 @@ paths:
               $ref: '#/definitions/models.ListaAlarma'
             type: array
         "400":
-          description: ""
+          description: Bad Request
         "404":
-          description: ""
+          description: Not Found
         "500":
-          description: ""
+          description: Internal Server Error
       summary: Obtiene la lista de alarmas por grupos
       tags:
       - alarma
@@ -254,11 +338,11 @@ paths:
               $ref: '#/definitions/models.ListaAlarma'
             type: array
         "400":
-          description: ""
+          description: Bad Request
         "404":
-          description: ""
+          description: Not Found
         "500":
-          description: ""
+          description: Internal Server Error
       summary: Obtiene la lista de alarmas major por equipos
       tags:
       - alarma
@@ -282,12 +366,29 @@ paths:
               $ref: '#/definitions/models.ListaAlarma'
             type: array
         "400":
-          description: ""
+          description: Bad Request
         "404":
-          description: ""
+          description: Not Found
         "500":
-          description: ""
+          description: Internal Server Error
       summary: Obtiene la lista de alarmas major por grupos
+      tags:
+      - alarma
+  /alarma/not-reachable:
+    get:
+      description: Obtiene un resumen de alarmas no alcanzables
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Obtiene un resumen de alarmas no alcanzables
       tags:
       - alarma
   /alarma/not-reachable/equipo/{id}:
@@ -310,11 +411,11 @@ paths:
               $ref: '#/definitions/models.ListaAlarma'
             type: array
         "400":
-          description: ""
+          description: Bad Request
         "404":
-          description: ""
+          description: Not Found
         "500":
-          description: ""
+          description: Internal Server Error
       summary: Obtiene la lista de alarmas not-reachable por equipos
       tags:
       - alarma
@@ -338,11 +439,11 @@ paths:
               $ref: '#/definitions/models.ListaAlarma'
             type: array
         "400":
-          description: ""
+          description: Bad Request
         "404":
-          description: ""
+          description: Not Found
         "500":
-          description: ""
+          description: Internal Server Error
       summary: Obtiene la lista de alarmas not-reachable por grupos
       tags:
       - alarma
@@ -366,11 +467,11 @@ paths:
               $ref: '#/definitions/models.ListaAlarma'
             type: array
         "400":
-          description: ""
+          description: Bad Request
         "404":
-          description: ""
+          description: Not Found
         "500":
-          description: ""
+          description: Internal Server Error
       summary: Obtiene la lista de alarmas notify por equipos
       tags:
       - alarma
@@ -394,12 +495,106 @@ paths:
               $ref: '#/definitions/models.ListaAlarma'
             type: array
         "400":
-          description: ""
+          description: Bad Request
         "404":
-          description: ""
+          description: Not Found
         "500":
-          description: ""
+          description: Internal Server Error
       summary: Obtiene la lista de alarmas notify por grupos
+      tags:
+      - alarma
+  /alarma/resumen:
+    get:
+      description: Obtiene un resumen de alarmas por hora
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.GraficoPrincipal'
+            type: array
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Obtiene un resumen de alarmas por hora
+      tags:
+      - alarma
+  /alarma/top/equipo:
+    get:
+      description: Obtiene los equipos con mayor número de alarmas
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.TopEquipoAlarmado'
+            type: array
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Obtiene los equipos con mayor número de alarmas
+      tags:
+      - alarma
+  /alarma/top/no-alcanzable:
+    get:
+      description: Obtiene los equipos con mayor ocurrencia de alarmas no alcanzables
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.TopEquipoAlarmado'
+            type: array
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Obtiene los equipos con mayor ocurrencia de alarmas no alcanzables
+      tags:
+      - alarma
+  /alarma/top/ocurrencia:
+    get:
+      description: Obtiene las alarmas con mayor ocurrencia
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.TopEquipoAlarmado'
+            type: array
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Obtiene las alarmas con mayor ocurrencia
+      tags:
+      - alarma
+  /alarma/total:
+    get:
+      description: Obtiene el total de alarmas alarmas critical, major y warning del
+        sistema
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.TotalAlarma'
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Obtiene el total de alarmas critical, major y warning del sistema
       tags:
       - alarma
   /alarma/warning/equipo/{id}:
@@ -422,11 +617,11 @@ paths:
               $ref: '#/definitions/models.ListaAlarma'
             type: array
         "400":
-          description: ""
+          description: Bad Request
         "404":
-          description: ""
+          description: Not Found
         "500":
-          description: ""
+          description: Internal Server Error
       summary: Obtiene la lista de alarmas warning por equipos
       tags:
       - alarma
@@ -450,15 +645,31 @@ paths:
               $ref: '#/definitions/models.ListaAlarma'
             type: array
         "400":
-          description: ""
+          description: Bad Request
         "404":
-          description: ""
+          description: Not Found
         "500":
-          description: ""
+          description: Internal Server Error
       summary: Obtiene la lista de alarmas warning por grupos
       tags:
       - alarma
   /equipo:
+    get:
+      description: Obtiene la lista de equipos
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Equipo'
+            type: array
+        "500":
+          description: Internal Server Error
+      summary: Obtiene la lista de equipos
+      tags:
+      - equipo
     post:
       consumes:
       - application/json
@@ -478,7 +689,7 @@ paths:
           schema:
             type: string
         "400":
-          description: ""
+          description: Bad Request
         "409":
           description: Conflict
           schema:
@@ -488,7 +699,7 @@ paths:
           schema:
             type: string
         "500":
-          description: ""
+          description: Internal Server Error
       summary: Crea un nuevo registro de equipo
       tags:
       - equipo
@@ -511,7 +722,7 @@ paths:
           schema:
             type: string
         "400":
-          description: ""
+          description: Bad Request
         "409":
           description: Conflict
           schema:
@@ -521,7 +732,7 @@ paths:
           schema:
             type: string
         "500":
-          description: ""
+          description: Internal Server Error
       summary: Actualiza datos de un equipo
       tags:
       - equipo
@@ -545,7 +756,7 @@ paths:
           schema:
             type: string
         "400":
-          description: ""
+          description: Bad Request
         "409":
           description: Conflict
           schema:
@@ -555,11 +766,27 @@ paths:
           schema:
             type: string
         "500":
-          description: ""
+          description: Internal Server Error
       summary: Elimina equipos
       tags:
       - equipo
   /grupo:
+    get:
+      description: Obtiene la lista de grupos
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Grupo'
+            type: array
+        "500":
+          description: Internal Server Error
+      summary: Obtiene la lista de grupos
+      tags:
+      - grupo
     post:
       consumes:
       - application/json
@@ -579,7 +806,7 @@ paths:
           schema:
             type: string
         "400":
-          description: ""
+          description: Bad Request
         "409":
           description: Conflict
           schema:
@@ -589,7 +816,7 @@ paths:
           schema:
             type: string
         "500":
-          description: ""
+          description: Internal Server Error
       summary: Crea un nuevo registro de grupo
       tags:
       - grupo
@@ -612,7 +839,7 @@ paths:
           schema:
             type: string
         "400":
-          description: ""
+          description: Bad Request
         "409":
           description: Conflict
           schema:
@@ -622,11 +849,27 @@ paths:
           schema:
             type: string
         "500":
-          description: ""
+          description: Internal Server Error
       summary: Actualiza datos de un grupo
       tags:
       - grupo
   /grupo-equipo:
+    get:
+      description: Obtiene la lista de grupos-equipos
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.GrupoEquipo'
+            type: array
+        "500":
+          description: Internal Server Error
+      summary: Obtiene la lista de grupos-equipos
+      tags:
+      - grupo-equipo
     post:
       consumes:
       - application/json
@@ -646,7 +889,7 @@ paths:
           schema:
             type: string
         "400":
-          description: ""
+          description: Bad Request
         "409":
           description: Conflict
           schema:
@@ -656,7 +899,7 @@ paths:
           schema:
             type: string
         "500":
-          description: ""
+          description: Internal Server Error
       summary: Crea un nuevo registro de grupo-equipo
       tags:
       - grupo-equipo
@@ -685,7 +928,7 @@ paths:
           schema:
             type: string
         "400":
-          description: ""
+          description: Bad Request
         "409":
           description: Conflict
           schema:
@@ -695,8 +938,42 @@ paths:
           schema:
             type: string
         "500":
-          description: ""
+          description: Internal Server Error
       summary: Elimina combinaciones de grupos - equipos
+      tags:
+      - grupo-equipo
+  /grupo-equipo/lista:
+    post:
+      consumes:
+      - application/json
+      description: Agrega un nuevo grupo-equipo
+      parameters:
+      - description: Estructura del grupo-equipo a agregar
+        in: body
+        name: equipo
+        required: true
+        schema:
+          $ref: '#/definitions/models.GrupoEquipoIntegraParam'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+        "409":
+          description: Conflict
+          schema:
+            type: string
+        "417":
+          description: Expectation Failed
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+      summary: Crea un nuevo registro de grupo-equipo
       tags:
       - grupo-equipo
   /grupo/id/{id}:
@@ -719,7 +996,7 @@ paths:
           schema:
             type: string
         "400":
-          description: ""
+          description: Bad Request
         "409":
           description: Conflict
           schema:
@@ -729,7 +1006,7 @@ paths:
           schema:
             type: string
         "500":
-          description: ""
+          description: Internal Server Error
       summary: Elimina grupos
       tags:
       - grupo
@@ -746,9 +1023,9 @@ paths:
               $ref: '#/definitions/models.MonitoreoEquipo'
             type: array
         "404":
-          description: ""
+          description: Not Found
         "500":
-          description: ""
+          description: Internal Server Error
       summary: Obtiene el monitoreo por equipos
       tags:
       - monitoreo
@@ -772,11 +1049,11 @@ paths:
               $ref: '#/definitions/models.MonitoreoEquipo'
             type: array
         "400":
-          description: ""
+          description: Bad Request
         "404":
-          description: ""
+          description: Not Found
         "500":
-          description: ""
+          description: Internal Server Error
       summary: Obtiene el monitoreo por equipos
       tags:
       - monitoreo
@@ -800,11 +1077,11 @@ paths:
               $ref: '#/definitions/models.MonitoreoEquipo'
             type: array
         "400":
-          description: ""
+          description: Bad Request
         "404":
-          description: ""
+          description: Not Found
         "500":
-          description: ""
+          description: Internal Server Error
       summary: Obtiene el monitoreo por grupos
       tags:
       - monitoreo
@@ -821,13 +1098,29 @@ paths:
               $ref: '#/definitions/models.MonitoreoGrupo'
             type: array
         "404":
-          description: ""
+          description: Not Found
         "500":
-          description: ""
+          description: Internal Server Error
       summary: Obtiene los datos de monitoreo de los grupos
       tags:
       - monitoreo
   /rol:
+    get:
+      description: Obtiene la lista de roles
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Rol'
+            type: array
+        "500":
+          description: Internal Server Error
+      summary: Obtiene la lista de roles
+      tags:
+      - rol
     post:
       consumes:
       - application/json
@@ -847,7 +1140,7 @@ paths:
           schema:
             type: string
         "400":
-          description: ""
+          description: Bad Request
         "409":
           description: Conflict
           schema:
@@ -857,8 +1150,33 @@ paths:
           schema:
             type: string
         "500":
-          description: ""
+          description: Internal Server Error
       summary: Crea un nuevo registro de rol
+      tags:
+      - rol
+  /rol/{id}:
+    get:
+      description: Obtiene el rol correspondiente al identificador (id) indicado
+      parameters:
+      - description: Identificador (id) del rol
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Rol'
+            type: array
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Obtiene roles
       tags:
       - rol
   /rol/id/{id}:
@@ -880,7 +1198,7 @@ paths:
           schema:
             type: string
         "400":
-          description: ""
+          description: Bad Request
         "409":
           description: Conflict
           schema:
@@ -890,11 +1208,27 @@ paths:
           schema:
             type: string
         "500":
-          description: ""
+          description: Internal Server Error
       summary: Elimina roles
       tags:
       - rol
   /usuario:
+    get:
+      description: Obtiene la lista de usuarios
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Usuario'
+            type: array
+        "500":
+          description: Internal Server Error
+      summary: Obtiene la lista de usuarios
+      tags:
+      - usuarios
     post:
       consumes:
       - application/json
@@ -914,7 +1248,7 @@ paths:
           schema:
             type: string
         "400":
-          description: ""
+          description: Bad Request
         "409":
           description: Conflict
           schema:
@@ -924,7 +1258,7 @@ paths:
           schema:
             type: string
         "500":
-          description: ""
+          description: Internal Server Error
       summary: Crea un nuevo registro de usuario
       tags:
       - usuario
@@ -947,13 +1281,13 @@ paths:
           schema:
             type: string
         "400":
-          description: ""
+          description: Bad Request
         "417":
           description: Expectation Failed
           schema:
             type: string
         "500":
-          description: ""
+          description: Internal Server Error
       summary: Actualiza datos de usuarios
       tags:
       - usuario
@@ -977,13 +1311,13 @@ paths:
           schema:
             type: string
         "400":
-          description: ""
+          description: Bad Request
         "417":
           description: Expectation Failed
           schema:
             type: string
         "500":
-          description: ""
+          description: Internal Server Error
       summary: Actualiza el password de usuarios
       tags:
       - usuario
@@ -1007,7 +1341,7 @@ paths:
           schema:
             type: string
         "400":
-          description: ""
+          description: Bad Request
         "409":
           description: Conflict
           schema:
@@ -1017,7 +1351,7 @@ paths:
           schema:
             type: string
         "500":
-          description: ""
+          description: Internal Server Error
       summary: Elimina usuarios
       tags:
       - usuario
@@ -1041,13 +1375,13 @@ paths:
           schema:
             $ref: '#/definitions/models.Usuario'
         "400":
-          description: ""
+          description: Bad Request
         "401":
           description: Unauthorized
           schema:
             type: string
         "500":
-          description: ""
+          description: Internal Server Error
       summary: Valida credenciales de usuarios
       tags:
       - usuario
