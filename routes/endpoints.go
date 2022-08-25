@@ -59,6 +59,7 @@ func (p AteneaRoute) CreaRuta(router *gin.RouterGroup, dbConn *gorm.DB, relative
 		grupo.GET("/alarma/notify/grupo/:id", controller.ListaAlarmaNotifyGrupo())
 		grupo.GET("/alarma/warning/equipo/:id", controller.ListaAlarmaWarningEquipo())
 		grupo.GET("/alarma/warning/grupo/:id", controller.ListaAlarmaWarningGrupo())
+		grupo.POST("/alarma/procesa", controller.ProcesaAlarmasLista())
 
 		grupo.GET("/alarma/total", controller.TotalAlarmas())
 		grupo.GET("/alarma/equipo/total", controller.TotalEquiposAlarmas())

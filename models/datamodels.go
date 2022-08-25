@@ -94,19 +94,3 @@ type TopEquipoAlarmado struct {
 	Nombre *string `gorm:"column:nombre" json:"nombre"`
 	Total  *int32  `gorm:"column:total" json:"total"`
 }
-
-type ListaAlarmasParam struct {
-	Id               int32
-	MsgIds           []int64
-	MsgSlots         []int32
-	MsgPorts         []*int64
-	MsgTexts         []string
-	MsgSourcesNames  []string
-	MsgSeveryties    []string
-	MsgInstances     []int32
-	MsgSetTimes      []string
-	MsgCardIds       []int32
-	TimestampInicios []string
-	DateServer       string
-	TimeServer       string
-}

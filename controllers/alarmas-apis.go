@@ -2,11 +2,11 @@ package controllers
 
 import (
 	"errors"
-	"net/http"
-	"strconv"
-
+	"github.com/RaulGarciaMz/ateneaserver/models"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
+	"net/http"
+	"strconv"
 )
 
 // ListaAlarmaCriticalEquipo godoc
@@ -616,6 +616,44 @@ func (e *Atenea) TopNoAlcanzable() gin.HandlerFunc {
 			}
 
 			c.JSON(http.StatusInternalServerError, err)
+			return
+		}
+
+		c.JSON(http.StatusOK, single)
+	}
+}
+
+// AltaRol godoc
+// @Summary Crea un nuevo registro de rol
+// @Description Agrega un nuevo rol
+// @Tags alarma
+// @Accept  json
+// @Produce  json
+// @Param equipo body models.RolParam true "Estructura del rol a agregar"
+// @Success 201 {string} string
+// @Failure 400
+// @Failure 409 {string} string
+// @Failure 417 {string} string
+// @Failure 500
+// @Router /alarma/procesa [post]
+func (e *Atenea) ProcesaAlarmasLista() gin.HandlerFunc {
+	return func(c *gin.Context) {
+
+		bodyPost := &models.ListaAlarmasParam{}
+		err := c.BindJSON(bodyPost)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, err)
+			return
+		}
+
+		single, err := e.db.ProcesaAlarmasLista(bodyPost)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, err)
+			return
+		}
+
+		if single == "Corrupto" {
+			c.JSON(http.StatusExpectationFailed, single)
 			return
 		}
 

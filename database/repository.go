@@ -416,9 +416,6 @@ func (e *AteneaRepo) IntegraGrupoEquipoLista(id int32, eq []int32) (string, erro
 func (e *AteneaRepo) ProcesaAlarmasLista(als *models.ListaAlarmasParam) (string, error) {
 	single := models.FunctionResp{}
 
-	/* 	tt := pq.Array(als.TimestampInicios)
-	   	td:= pq.Array(als.DateServer) */
-
 	err := e.db.Raw("SELECT * FROM admin.procesa_alarmas_lista(?, ?,?,?,?,?,?,?,?,?,?,?,?) as resultado",
 		als.Id, pq.Array(als.MsgIds), pq.Array(als.MsgSlots), pq.Array(als.MsgPorts),
 		pq.Array(als.MsgTexts), pq.Array(als.MsgSourcesNames), pq.Array(als.MsgSeveryties), pq.Array(als.MsgInstances),

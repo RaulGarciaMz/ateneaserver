@@ -41,3 +41,19 @@ type GrupoEquipoIntegraParam struct {
 	IdGrupo int32   `json:"id_grupo"`
 	Equipos []int32 `json:"equipos"`
 }
+
+type ListaAlarmasParam struct {
+	Id               int32
+	MsgIds           []int64
+	MsgSlots         []int32
+	MsgPorts         []*int64
+	MsgTexts         []string
+	MsgSourcesNames  []string
+	MsgSeveryties    []string
+	MsgInstances     []int32
+	MsgSetTimes      []string
+	MsgCardIds       []int32
+	TimestampInicios []string
+	DateServer       string
+	TimeServer       string
+}
