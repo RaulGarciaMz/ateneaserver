@@ -149,3 +149,24 @@ func (e *Atenea) ListaGrupos() gin.HandlerFunc {
 		c.JSON(http.StatusOK, single)
 	}
 }
+
+// ListaEquipoGrupos godoc
+// @Summary Obtiene la lista de grupos por equipo
+// @Description Obtiene la lista de grupos por equipo
+// @Tags grupo
+// @Produce  json
+// @Success 200 {array} models.Grupo
+// @Failure 500
+// @Router /grupo/equipo [get]
+func (e *Atenea) ListaEquipoGrupos() gin.HandlerFunc {
+	return func(c *gin.Context) {
+
+		single, err := e.db.ListaEquipoGrupos()
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, err)
+			return
+		}
+
+		c.JSON(http.StatusOK, single)
+	}
+}
