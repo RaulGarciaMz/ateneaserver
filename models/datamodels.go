@@ -54,6 +54,7 @@ type MonitoreoEquipo struct {
 	Warning      int    `json:"warning" gorm:"column:warning_"`
 	Notify       int    `json:"notify" gorm:"column:notify_"`
 	NotReachable int    `json:"not_reachable" gorm:"column:not_reachable"`
+	Filtro       bool   `json:"filtro" gorm:"column:filtro"`
 }
 
 type Rol struct {

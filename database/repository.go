@@ -17,7 +17,7 @@ func NewAteneaRepo(db *gorm.DB) *AteneaRepo {
 func (e *AteneaRepo) AltaEquipo(nombre, ip, descripcion string) (string, error) {
 
 	single := models.FunctionResp{}
-	err := e.db.Raw(" SELECT * FROM admin.alta_equipo (?, ?, ?) as resultado", nombre, ip, descripcion).Scan(&single).Error
+	err := e.db.Raw("SELECT * FROM admin.alta_equipo (?, ?, ?) as resultado", nombre, ip, descripcion).Scan(&single).Error
 	if err != nil {
 		return "", err
 	}
@@ -270,7 +270,7 @@ func (e *AteneaRepo) ListaAlarmaNotifyEquipo(id int32) ([]*models.ListaAlarma, e
 func (e *AteneaRepo) ListaAlarmaNotifyGrupo(id int32) ([]*models.ListaAlarma, error) {
 
 	single := []*models.ListaAlarma{}
-	err := e.db.Raw(" SELECT * FROM admin.lista_alarmas_notify_grupo(?)", id).Scan(&single).Error
+	err := e.db.Raw("SELECT * FROM admin.lista_alarmas_notify_grupo(?)", id).Scan(&single).Error
 	if err != nil {
 		return nil, err
 	}
@@ -281,7 +281,7 @@ func (e *AteneaRepo) ListaAlarmaNotifyGrupo(id int32) ([]*models.ListaAlarma, er
 func (e *AteneaRepo) ListaAlarmaWarningEquipo(id int32) ([]*models.ListaAlarma, error) {
 
 	single := []*models.ListaAlarma{}
-	err := e.db.Raw(" SELECT * FROM admin.lista_alarmas_warning_equipo(?)", id).Scan(&single).Error
+	err := e.db.Raw("SELECT * FROM admin.lista_alarmas_warning_equipo(?)", id).Scan(&single).Error
 	if err != nil {
 		return nil, err
 	}
@@ -292,7 +292,7 @@ func (e *AteneaRepo) ListaAlarmaWarningEquipo(id int32) ([]*models.ListaAlarma, 
 func (e *AteneaRepo) ListaAlarmaWarningGrupo(id int32) ([]*models.ListaAlarma, error) {
 
 	single := []*models.ListaAlarma{}
-	err := e.db.Raw(" SELECT * FROM admin.lista_alarmas_warning_grupo(?)", id).Scan(&single).Error
+	err := e.db.Raw("SELECT * FROM admin.lista_alarmas_warning_grupo(?)", id).Scan(&single).Error
 	if err != nil {
 		return nil, err
 	}
@@ -303,7 +303,7 @@ func (e *AteneaRepo) ListaAlarmaWarningGrupo(id int32) ([]*models.ListaAlarma, e
 func (e *AteneaRepo) MonitoreoEquipo(id int32) ([]*models.MonitoreoEquipo, error) {
 
 	single := []*models.MonitoreoEquipo{}
-	err := e.db.Raw(" SELECT * FROM admin.monitoreo_equipo(?)", id).Scan(&single).Error
+	err := e.db.Raw("SELECT * FROM admin.monitoreo_equipo(?)", id).Scan(&single).Error
 	if err != nil {
 		return nil, err
 	}
@@ -313,7 +313,7 @@ func (e *AteneaRepo) MonitoreoEquipo(id int32) ([]*models.MonitoreoEquipo, error
 
 func (e *AteneaRepo) MonitoreoEquipos() ([]*models.MonitoreoEquipo, error) {
 	single := []*models.MonitoreoEquipo{}
-	err := e.db.Raw(" SELECT * FROM admin.monitoreo_equipos()").Scan(&single).Error
+	err := e.db.Raw("SELECT * FROM admin.monitoreo_equipos()").Scan(&single).Error
 	if err != nil {
 		return nil, err
 	}
@@ -324,7 +324,7 @@ func (e *AteneaRepo) MonitoreoEquipos() ([]*models.MonitoreoEquipo, error) {
 func (e *AteneaRepo) MonitoreoGrupo(id int32) ([]*models.MonitoreoGrupo, error) {
 
 	single := []*models.MonitoreoGrupo{}
-	err := e.db.Raw(" SELECT * FROM admin.monitoreo_grupo(?)", id).Scan(&single).Error
+	err := e.db.Raw("SELECT * FROM admin.monitoreo_grupo(?)", id).Scan(&single).Error
 	if err != nil {
 		return nil, err
 	}
