@@ -152,16 +152,25 @@ func (e *Atenea) ListaGrupos() gin.HandlerFunc {
 
 // ListaEquipoGrupos godoc
 // @Summary Obtiene la lista de grupos por equipo
-// @Description Obtiene la lista de grupos por equipo
+// @Description Obtiene la lista de grupos correspondiente al valor del identificador del equipo (id) indicado en el parámetro
 // @Tags grupo
 // @Produce  json
+// @Param id path string true "Identificador (id) del grupo"
 // @Success 200 {array} models.Grupo
 // @Failure 500
-// @Router /grupo/equipo [get]
+// @Router /grupo/equipo/{id} [get]
 func (e *Atenea) ListaEquipoGrupos() gin.HandlerFunc {
 	return func(c *gin.Context) {
 
-		single, err := e.db.ListaEquipoGrupos()
+		id := c.Param("id")
+
+		id_usr, err := strconv.Atoi(id)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, err)
+			return
+		}
+
+		single, err := e.db.ListaEquipoGrupos(id_usr)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, err)
 			return

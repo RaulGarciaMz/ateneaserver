@@ -505,9 +505,9 @@ func (e *AteneaRepo) TopNoAlcanzable() ([]models.TopEquipoAlarmado, error) {
 	return single, err
 }
 
-func (e *AteneaRepo) ListaEquipoGrupos() ([]models.Grupo, error) {
+func (e *AteneaRepo) ListaEquipoGrupos(equipo int) ([]models.Grupo, error) {
 	single := []models.Grupo{}
-	err := e.db.Raw("SELECT * FROM admin.lista_equipo_grupos()").Scan(&single).Error
+	err := e.db.Raw("SELECT * FROM admin.lista_equipo_grupos(?)", equipo).Scan(&single).Error
 	if err != nil {
 		return nil, err
 	}

@@ -503,6 +503,40 @@ paths:
       summary: Obtiene la lista de alarmas notify por grupos
       tags:
       - alarma
+  /alarma/procesa:
+    post:
+      consumes:
+      - application/json
+      description: Agrega un nuevo rol
+      parameters:
+      - description: Estructura del rol a agregar
+        in: body
+        name: equipo
+        required: true
+        schema:
+          $ref: '#/definitions/models.RolParam'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+        "409":
+          description: Conflict
+          schema:
+            type: string
+        "417":
+          description: Expectation Failed
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+      summary: Crea un nuevo registro de rol
+      tags:
+      - alarma
   /alarma/resumen:
     get:
       description: Obtiene un resumen de alarmas por hora
@@ -976,6 +1010,30 @@ paths:
       summary: Crea un nuevo registro de grupo-equipo
       tags:
       - grupo-equipo
+  /grupo/equipo/{id}:
+    get:
+      description: Obtiene la lista de grupos correspondiente al valor del identificador
+        del equipo (id) indicado en el parámetro
+      parameters:
+      - description: Identificador (id) del grupo
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Grupo'
+            type: array
+        "500":
+          description: Internal Server Error
+      summary: Obtiene la lista de grupos por equipo
+      tags:
+      - grupo
   /grupo/id/{id}:
     delete:
       consumes:
