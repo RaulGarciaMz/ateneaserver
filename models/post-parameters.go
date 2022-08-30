@@ -22,6 +22,11 @@ type EquipoParam struct {
 	Id          int32  `json:"id"`
 }
 
+type FiltroEquipoParam struct {
+	Id     int32 `json:"id"`
+	Filtro bool  `json:"filtro"`
+}
+
 type GrupoParam struct {
 	Nombre string `json:"nombre"`
 	Id     int32  `json:"id"`

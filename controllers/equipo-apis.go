@@ -48,6 +48,45 @@ func (e *Atenea) AltaEquipo() gin.HandlerFunc {
 	}
 }
 
+// FiltroEquipo godoc
+// @Summary Cambia el valor de la bandera de filtro de equipos
+// @Description cambia el valor de la bandera de filtro del equipo indicado
+// @Tags equipo
+// @Accept  json
+// @Produce  json
+// @Param equipo body models.EquipoParam true "Estructura del equipo a agregar"
+// @Success 201 {string} string
+// @Failure 400
+// @Failure 409 {string} string
+// @Failure 417 {string} string
+// @Failure 500
+// @Router /equipo/filtro [post]
+func (e *Atenea) FiltroEquipo() gin.HandlerFunc {
+	return func(c *gin.Context) {
+
+		bodyPost := &models.FiltroEquipoParam{}
+		err := c.BindJSON(bodyPost)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, err)
+			return
+		}
+
+		single, err := e.db.FiltroEquipo(bodyPost.Id, bodyPost.Filtro)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, err)
+			return
+		}
+
+		switch single {
+		case "Corrupto":
+			c.JSON(http.StatusConflict, single)
+
+		default:
+			c.JSON(http.StatusOK, single)
+		}
+	}
+}
+
 // ActualizaEquipo godoc
 // @Summary Actualiza datos de un equipo
 // @Description Actualiza el registro del equipo indicado en el body de la petición

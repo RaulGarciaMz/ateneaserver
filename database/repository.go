@@ -25,6 +25,17 @@ func (e *AteneaRepo) AltaEquipo(nombre, ip, descripcion string) (string, error) 
 	return *single.Resultado, nil
 }
 
+func (e *AteneaRepo) FiltroEquipo(id int32, filtro bool) (string, error) {
+
+	single := models.FunctionResp{}
+	err := e.db.Raw("SELECT * FROM admin.filtro_equipo (?, ?) as resultado", id, filtro).Scan(&single).Error
+	if err != nil {
+		return "", err
+	}
+
+	return *single.Resultado, nil
+}
+
 func (e *AteneaRepo) ActualizaEquipo(id int32, nombre, ip, descripcion string) (string, error) {
 
 	single := models.FunctionResp{}
