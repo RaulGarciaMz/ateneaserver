@@ -18,7 +18,7 @@ func (p AteneaRoute) CreaRuta(router *gin.RouterGroup, dbConn *gorm.DB, relative
 		//equipos
 		grupo.GET("/equipo", controller.ListaEquipos())
 		grupo.POST("/equipo", controller.AltaEquipo())
-		grupo.POST("/equipo/fitro", controller.FiltroEquipo())
+		grupo.POST("/equipo/filtro", controller.FiltroEquipo())
 		grupo.PUT("/equipo", controller.ActualizaEquipo())
 		grupo.DELETE("/equipo/id/:id", controller.BajaEquipo())
 
