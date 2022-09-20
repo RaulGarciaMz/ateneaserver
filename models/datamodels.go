@@ -72,6 +72,7 @@ type Equipo struct {
 	Nombre      *string `gorm:"column:nombre" json:"nombre"`
 	Ip          *string `gorm:"column:ip" json:"ip"`
 	Descripcion *string `gorm:"column:descripcion" json:"descripcion"`
+	Puerto      *string `gorm:"column:puerto" json:"puerto"`
 }
 
 type GrupoEquipo struct {
