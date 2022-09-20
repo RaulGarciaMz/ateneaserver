@@ -31,7 +31,7 @@ func (e *Atenea) AltaEquipo() gin.HandlerFunc {
 			return
 		}
 
-		single, err := e.db.AltaEquipo(bodyPost.Nombre, bodyPost.Ip, bodyPost.Descripcion)
+		single, err := e.db.AltaEquipo(bodyPost.Nombre, bodyPost.Ip, bodyPost.Descripcion, bodyPost.Puerto)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, err)
 			return
@@ -110,7 +110,7 @@ func (e *Atenea) ActualizaEquipo() gin.HandlerFunc {
 			return
 		}
 
-		single, err := e.db.ActualizaEquipo(bodyPost.Id, bodyPost.Nombre, bodyPost.Ip, bodyPost.Descripcion)
+		single, err := e.db.ActualizaEquipo(bodyPost.Id, bodyPost.Nombre, bodyPost.Ip, bodyPost.Descripcion, bodyPost.Puerto)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, err)
 			return

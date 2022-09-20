@@ -14,10 +14,10 @@ func NewAteneaRepo(db *gorm.DB) *AteneaRepo {
 	return &AteneaRepo{db: db}
 }
 
-func (e *AteneaRepo) AltaEquipo(nombre, ip, descripcion string) (string, error) {
+func (e *AteneaRepo) AltaEquipo(nombre, ip, descripcion string, puerto int32) (string, error) {
 
 	single := models.FunctionResp{}
-	err := e.db.Raw("SELECT * FROM admin.alta_equipo (?, ?, ?) as resultado", nombre, ip, descripcion).Scan(&single).Error
+	err := e.db.Raw("SELECT * FROM admin.alta_equipo (?, ?, ?, ?) as resultado", nombre, ip, descripcion, puerto).Scan(&single).Error
 	if err != nil {
 		return "", err
 	}
@@ -36,10 +36,10 @@ func (e *AteneaRepo) FiltroEquipo(id int32, filtro bool) (string, error) {
 	return *single.Resultado, nil
 }
 
-func (e *AteneaRepo) ActualizaEquipo(id int32, nombre, ip, descripcion string) (string, error) {
+func (e *AteneaRepo) ActualizaEquipo(id int32, nombre, ip, descripcion string, puerto int32) (string, error) {
 
 	single := models.FunctionResp{}
-	err := e.db.Raw("SELECT * FROM admin.actualiza_equipo(?,?,?,?) as resultado", id, nombre, ip, descripcion).Scan(&single).Error
+	err := e.db.Raw("SELECT * FROM admin.actualiza_equipo(?,?,?,?,?) as resultado", id, nombre, ip, descripcion, puerto).Scan(&single).Error
 	if err != nil {
 		return "", err
 	}
