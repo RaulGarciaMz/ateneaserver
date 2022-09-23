@@ -20,7 +20,7 @@ func TestRepo_AltaEquipo(t *testing.T) {
 
 	repo := database.NewAteneaRepo(cn)
 
-	b, err := repo.AltaEquipo("ultimoRGM34", "1.0.0.0", "prueba de alta de equipo")
+	b, err := repo.AltaEquipo("ultimoRGM34", "1.0.0.0", "prueba de alta de equipo", 20)
 	_ = b
 	if err != nil {
 		t.Error("No obtuvo datos por error")
@@ -37,7 +37,7 @@ func TestRepo_ActualizaEquipo(t *testing.T) {
 
 	repo := database.NewAteneaRepo(cn)
 
-	b, err := repo.ActualizaEquipo(1, "pato", "10.4.5.6", "actualizaciónde equipo")
+	b, err := repo.ActualizaEquipo(1, "pato", "10.4.5.6", "actualizaciónde equipo", 20)
 	_ = b
 	if err != nil {
 		t.Error("No obtuvo datos por error")
@@ -314,7 +314,7 @@ func TestRepo_ListaAlarmaGrupo(t *testing.T) {
 
 	repo := database.NewAteneaRepo(cn)
 
-	b, err := repo.ListaAlarmaGrupo(1)
+	b, err := repo.ListaAlarmaGrupo(21)
 	_ = b
 	if err != nil {
 		t.Error("No obtuvo datos por error")

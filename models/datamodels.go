@@ -32,17 +32,18 @@ type Usuario struct {
 }
 
 type ListaAlarma struct {
-	Equipo        string    `json:"equipo" gorm:"column:equipo"`
-	IdEquipo      int32     `json:"id_equipo" gorm:"column:id_equipo"`
-	MsgId         int32     `json:"msg_id" gorm:"column:msg_id"`
-	MsgSlot       int       `json:"msg_slot" gorm:"column:msg_slot"`
-	MsgPort       int       `json:"msg_port" gorm:"column:msg_port"`
-	MsgText       string    `json:"msg_text" gorm:"column:msg_text"`
-	MsgSourceName string    `json:"msg_source_name" gorm:"column:msg_source_name"`
-	MsgSeverity   string    `json:"msg_severity" gorm:"column:msg_severity"`
-	MsgInstance   int       `json:"msg_instance" gorm:"column:msg_instance"`
-	MsgSetTime    time.Time `json:"msg_set_time" gorm:"column:msg_set_time"`
-	MsgCardId     int32     `json:"msg_card_id" gorm:"column:msg_card_id"`
+	Equipo          string    `json:"equipo" gorm:"column:equipo"`
+	IdEquipo        int32     `json:"id_equipo" gorm:"column:id_equipo"`
+	MsgId           int32     `json:"msg_id" gorm:"column:msg_id"`
+	MsgSlot         int       `json:"msg_slot" gorm:"column:msg_slot"`
+	MsgPort         int       `json:"msg_port" gorm:"column:msg_port"`
+	MsgText         string    `json:"msg_text" gorm:"column:msg_text"`
+	MsgSourceName   string    `json:"msg_source_name" gorm:"column:msg_source_name"`
+	MsgSeverity     string    `json:"msg_severity" gorm:"column:msg_severity"`
+	MsgInstance     int       `json:"msg_instance" gorm:"column:msg_instance"`
+	MsgSetTime      time.Time `json:"msg_set_time" gorm:"column:msg_set_time"`
+	MsgCardId       int32     `json:"msg_card_id" gorm:"column:msg_card_id"`
+	TimestampServer time.Time `json:"timestamp_server" gorm:"column:timestamp_server"`
 }
 
 type MonitoreoEquipo struct {
