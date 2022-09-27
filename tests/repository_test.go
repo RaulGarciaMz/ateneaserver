@@ -3,6 +3,7 @@ package tests
 import (
 	"fmt"
 	"testing"
+	"time"
 
 	"github.com/RaulGarciaMz/ateneaserver/database"
 	"github.com/RaulGarciaMz/ateneaserver/models"
@@ -55,6 +56,23 @@ func TestRepo_BajaEquipo(t *testing.T) {
 	repo := database.NewAteneaRepo(cn)
 
 	b, err := repo.BajaEquipo(1)
+	_ = b
+	if err != nil {
+		t.Error("No obtuvo datos por error")
+	}
+
+}
+
+func TestRepo_EquipoAlcanzable(t *testing.T) {
+
+	cn, err := createConnection()
+	if err != nil {
+		t.Fatal("No se conectó")
+	}
+
+	repo := database.NewAteneaRepo(cn)
+
+	b, err := repo.EquipoAlcanzable(28, true, time.Now())
 	_ = b
 	if err != nil {
 		t.Error("No obtuvo datos por error")

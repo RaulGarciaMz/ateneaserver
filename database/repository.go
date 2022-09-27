@@ -1,6 +1,8 @@
 package database
 
 import (
+	"time"
+
 	"github.com/RaulGarciaMz/ateneaserver/models"
 	"github.com/lib/pq"
 	"gorm.io/gorm"
@@ -29,6 +31,17 @@ func (e *AteneaRepo) FiltroEquipo(id int32, filtro bool) (string, error) {
 
 	single := models.FunctionResp{}
 	err := e.db.Raw("SELECT * FROM admin.filtro_equipo (?, ?) as resultado", id, filtro).Scan(&single).Error
+	if err != nil {
+		return "", err
+	}
+
+	return *single.Resultado, nil
+}
+
+func (e *AteneaRepo) EquipoAlcanzable(id int32, alcanza bool, fecha time.Time) (string, error) {
+
+	single := models.FunctionResp{}
+	err := e.db.Raw("SELECT * FROM admin.equipo_alcanzable(?, ?, ?) as resultado", id, alcanza, fecha).Scan(&single).Error
 	if err != nil {
 		return "", err
 	}

@@ -16,6 +16,7 @@ import (
 // @Produce  json
 // @Param equipo body models.EquipoParam true "Estructura del equipo a agregar"
 // @Success 201 {string} string
+// @Success 202 {string} string
 // @Failure 400
 // @Failure 409 {string} string
 // @Failure 417 {string} string
@@ -42,6 +43,8 @@ func (e *Atenea) AltaEquipo() gin.HandlerFunc {
 			c.JSON(http.StatusCreated, single)
 		case "Existente":
 			c.JSON(http.StatusConflict, single)
+		case "Excedido":
+			c.JSON(http.StatusAccepted, single)
 		default:
 			c.JSON(http.StatusExpectationFailed, single)
 		}
@@ -72,6 +75,44 @@ func (e *Atenea) FiltroEquipo() gin.HandlerFunc {
 		}
 
 		single, err := e.db.FiltroEquipo(bodyPost.Id, bodyPost.Filtro)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, err)
+			return
+		}
+
+		switch single {
+		case "Corrupto":
+			c.JSON(http.StatusConflict, single)
+
+		default:
+			c.JSON(http.StatusOK, single)
+		}
+	}
+}
+
+// EquipoAlcanzable godoc
+// @Summary Actualiza el valor de la bandera alcanzable para equipos
+// @Description actualiza el valor de la bandera alcanzable para el equipo indicado
+// @Tags equipo
+// @Accept  json
+// @Produce  json
+// @Param equipo body models.EquipoAlcanzableParam true "Estructura del equipo a modificar"
+// @Success 200 {string} string
+// @Failure 400
+// @Failure 409 {string} string
+// @Failure 500
+// @Router /equipo/alcanzable [post]
+func (e *Atenea) EquipoAlcanzable() gin.HandlerFunc {
+	return func(c *gin.Context) {
+
+		bodyPost := &models.EquipoAlcanzableParam{}
+		err := c.BindJSON(bodyPost)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, err)
+			return
+		}
+
+		single, err := e.db.EquipoAlcanzable(bodyPost.Id, bodyPost.Alcanzable, bodyPost.Fecha)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, err)
 			return

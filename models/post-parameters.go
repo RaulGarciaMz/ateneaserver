@@ -1,5 +1,7 @@
 package models
 
+import "time"
+
 type UsuarioParam struct {
 	Usuario string `json:"usuario"`
 	Nombre  string `json:"nombre"`
@@ -28,6 +30,12 @@ type FiltroEquipoParam struct {
 	Filtro bool  `json:"filtro"`
 }
 
+type EquipoAlcanzableParam struct {
+	Id         int32     `json:"id"`
+	Alcanzable bool      `json:"alcanzable"`
+	Fecha      time.Time `json:"fecha"`
+}
+
 type GrupoParam struct {
 	Nombre string `json:"nombre"`
 	Id     int32  `json:"id"`
@@ -47,7 +55,6 @@ type GrupoEquipoIntegraParam struct {
 	IdGrupo int32   `json:"id_grupo"`
 	Equipos []int32 `json:"equipos"`
 }
-
 type ListaAlarmasParam struct {
 	Id               int32
 	MsgIds           []int64
