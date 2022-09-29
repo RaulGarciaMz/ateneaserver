@@ -476,7 +476,6 @@ func TestRepo_ListaAlarmaWarningGrupo(t *testing.T) {
 
 }
 
-// monitoreo
 func TestRepo_MonitoreoEquipos(t *testing.T) {
 
 	cn, err := createConnection()
@@ -487,6 +486,58 @@ func TestRepo_MonitoreoEquipos(t *testing.T) {
 	repo := database.NewAteneaRepo(cn)
 
 	b, err := repo.MonitoreoEquipos()
+	_ = b
+	if err != nil {
+		t.Error("No obtuvo datos por error")
+	}
+
+}
+
+// monitoreo
+func TestRepo_ListaGruposEquipoNoAlcanzado(t *testing.T) {
+
+	cn, err := createConnection()
+	if err != nil {
+		t.Fatal("No se conectó")
+	}
+
+	repo := database.NewAteneaRepo(cn)
+
+	b, err := repo.ListaGruposEquipoNoAlcanzado(23)
+	_ = b
+	if err != nil {
+		t.Error("No obtuvo datos por error")
+	}
+
+}
+
+func TestRepo_ListaGruposEquipos(t *testing.T) {
+
+	cn, err := createConnection()
+	if err != nil {
+		t.Fatal("No se conectó")
+	}
+
+	repo := database.NewAteneaRepo(cn)
+
+	b, err := repo.ListaGruposEquiposById(4)
+	_ = b
+	if err != nil {
+		t.Error("No obtuvo datos por error")
+	}
+
+}
+
+func TestRepo_TotalEquiposMonitoreados(t *testing.T) {
+
+	cn, err := createConnection()
+	if err != nil {
+		t.Fatal("No se conectó")
+	}
+
+	repo := database.NewAteneaRepo(cn)
+
+	b, err := repo.TotalEquiposMonitoreados()
 	_ = b
 	if err != nil {
 		t.Error("No obtuvo datos por error")

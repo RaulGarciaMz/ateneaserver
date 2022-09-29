@@ -345,6 +345,16 @@ func (e *AteneaRepo) MonitoreoEquipos() ([]*models.MonitoreoEquipo, error) {
 	return single, err
 }
 
+func (e *AteneaRepo) ListaGruposEquipoNoAlcanzado(id int32) ([]*models.Grupo, error) {
+	single := []*models.Grupo{}
+	err := e.db.Raw("SELECT * FROM admin.lista_grupos_equipo_no_alcanzado(?)", id).Scan(&single).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return single, err
+}
+
 func (e *AteneaRepo) MonitoreoGrupo(id int32) ([]*models.MonitoreoGrupo, error) {
 
 	single := []*models.MonitoreoGrupo{}
@@ -426,6 +436,26 @@ func (e *AteneaRepo) ListaGruposEquipos() ([]models.GrupoEquipo, error) {
 	return single, err
 }
 
+func (e *AteneaRepo) ListaGruposEquiposById(id int) ([]models.Grupo, error) {
+	single := []models.Grupo{}
+	err := e.db.Raw("SELECT * FROM admin.lista_grupos_equipo(?)", id).Scan(&single).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return single, err
+}
+
+func (e *AteneaRepo) ListaGruposEquipoNoAlcanzadoById(id int) ([]models.Grupo, error) {
+	single := []models.Grupo{}
+	err := e.db.Raw("SELECT * FROM admin.lista_grupos_equipo_no_alcanzado(?)", id).Scan(&single).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return single, err
+}
+
 func (e *AteneaRepo) IntegraGrupoEquipoLista(id int32, eq []int32) (string, error) {
 	single := models.FunctionResp{}
 
@@ -494,6 +524,17 @@ func (e *AteneaRepo) TotalNoAlcanzable() (*int32, error) {
 	}
 
 	return single.Resultado, err
+}
+
+func (e *AteneaRepo) TotalEquiposMonitoreados() ([]models.TotalEquipoMonitoreado, error) {
+	single := []models.TotalEquipoMonitoreado{}
+
+	err := e.db.Raw("SELECT * FROM admin.total_equipos_monitoreados()").Scan(&single).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return single, err
 }
 
 func (e *AteneaRepo) TopEquiposAlarmados() ([]models.TopEquipoAlarmado, error) {

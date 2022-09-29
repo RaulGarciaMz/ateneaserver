@@ -56,6 +56,7 @@ type MonitoreoEquipo struct {
 	Notify       int    `json:"notify" gorm:"column:notify_"`
 	NotReachable int    `json:"not_reachable" gorm:"column:not_reachable"`
 	Filtro       bool   `json:"filtro" gorm:"column:filtro"`
+	Alcanzable   bool   `json:"alcanzable" gorm:"column:alcanzable"`
 }
 
 type Rol struct {
@@ -96,4 +97,10 @@ type GraficoPrincipal struct {
 type TopEquipoAlarmado struct {
 	Nombre *string `gorm:"column:nombre" json:"nombre"`
 	Total  *int32  `gorm:"column:total" json:"total"`
+}
+
+type TotalEquipoMonitoreado struct {
+	Total        *int32  `gorm:"column:total" json:"total"`
+	Alcanzable   *string `gorm:"column:alcanzable" json:"alcanzable"`
+	NoAlcanzable *string `gorm:"column:no_alcanzable" json:"no_alcanzable"`
 }

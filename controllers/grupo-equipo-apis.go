@@ -78,6 +78,62 @@ func (e *Atenea) ListaGruposEquipos() gin.HandlerFunc {
 	}
 }
 
+// ListaGruposEquiposById godoc
+// @Summary Obtiene la lista de grupos-equipos por id
+// @Description Obtiene la lista de grupos-equipos por id
+// @Tags grupo-equipo
+// @Produce  json
+// @Success 200 {array} models.Grupo
+// @Failure 500
+// @Router /grupo-equipo/id/{id} [get]
+func (e *Atenea) ListaGruposEquiposById() gin.HandlerFunc {
+	return func(c *gin.Context) {
+
+		id := c.Param("id")
+		id_gpo, err := strconv.Atoi(id)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, err)
+			return
+		}
+
+		single, err := e.db.ListaGruposEquiposById(id_gpo)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, err)
+			return
+		}
+
+		c.JSON(http.StatusOK, single)
+	}
+}
+
+// ListaGruposEquipoNoAlcanzadoById godoc
+// @Summary Obtiene la lista de grupos-equipos no alcanzados por id
+// @Description Obtiene la lista de grupos-equipos no alcanzados por id
+// @Tags grupo-equipo
+// @Produce  json
+// @Success 200 {array} models.Grupo
+// @Failure 500
+// @Router /grupo-equipo/no-alcanzados/{id} [get]
+func (e *Atenea) ListaGruposEquipoNoAlcanzadoById() gin.HandlerFunc {
+	return func(c *gin.Context) {
+
+		id := c.Param("id")
+		id_gpo, err := strconv.Atoi(id)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, err)
+			return
+		}
+
+		single, err := e.db.ListaGruposEquipoNoAlcanzadoById(id_gpo)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, err)
+			return
+		}
+
+		c.JSON(http.StatusOK, single)
+	}
+}
+
 // IntegraGrupoEquipo godoc
 // @Summary Crea un nuevo registro de grupo-equipo
 // @Description Agrega un nuevo grupo-equipo

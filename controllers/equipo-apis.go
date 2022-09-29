@@ -229,3 +229,24 @@ func (e *Atenea) ListaEquipos() gin.HandlerFunc {
 		c.JSON(http.StatusOK, single)
 	}
 }
+
+// TotalEquiposMonitoreados godoc
+// @Summary Obtiene el total equipos monitoreados, equipos alcanzables y equipos no alcanzables
+// @Description Obtiene el total equipos monitoreados, equipos alcanzables y equipos no alcanzables
+// @Tags equipo
+// @Produce  json
+// @Success 200 {array} models.TotalEquipoMonitoreado
+// @Failure 500
+// @Router /equipo/total-monitoreado [get]
+func (e *Atenea) TotalEquiposMonitoreados() gin.HandlerFunc {
+	return func(c *gin.Context) {
+
+		single, err := e.db.TotalEquiposMonitoreados()
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, err)
+			return
+		}
+
+		c.JSON(http.StatusOK, single)
+	}
+}
