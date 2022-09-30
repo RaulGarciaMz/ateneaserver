@@ -70,11 +70,14 @@ type Grupo struct {
 }
 
 type Equipo struct {
-	Id          *int32  `gorm:"column:id" json:"id"`
-	Nombre      *string `gorm:"column:nombre" json:"nombre"`
-	Ip          *string `gorm:"column:ip" json:"ip"`
-	Descripcion *string `gorm:"column:descripcion" json:"descripcion"`
-	Puerto      *string `gorm:"column:puerto" json:"puerto"`
+	Id            *int32  `gorm:"column:id" json:"id"`
+	Nombre        *string `gorm:"column:nombre" json:"nombre"`
+	Ip            *string `gorm:"column:ip" json:"ip"`
+	Descripcion   *string `gorm:"column:descripcion" json:"descripcion"`
+	Puerto        *string `gorm:"column:puerto" json:"puerto"`
+	Usuario       *string `gorm:"column:usuario" json:"usuario"`
+	Password      *string `gorm:"column:password" json:"password"`
+	Autenticacion *bool   `gorm:"column:autenticacion" json:"autenticacion"`
 }
 
 type GrupoEquipo struct {

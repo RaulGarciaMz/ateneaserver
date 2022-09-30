@@ -18,11 +18,14 @@ type UsuarioAuthParam struct {
 }
 
 type EquipoParam struct {
-	Nombre      string `json:"nombre"`
-	Descripcion string `json:"descripcion"`
-	Ip          string `json:"ip"`
-	Puerto      int32  `json:"puerto"`
-	Id          int32  `json:"id"`
+	Nombre        string `json:"nombre"`
+	Descripcion   string `json:"descripcion"`
+	Usuario       string `json:"usuario"`
+	Password      string `json:"password"`
+	Ip            string `json:"ip"`
+	Puerto        int32  `json:"puerto"`
+	Id            int32  `json:"id"`
+	Autenticacion bool   `json:"autenticacion"`
 }
 
 type FiltroEquipoParam struct {
